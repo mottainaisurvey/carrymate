@@ -1,66 +1,50 @@
-import type { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
-import { createClient } from "@supabase/supabase-js";
-import { db } from "@carrymate/db/client";
-import { users } from "@carrymate/db/schema";
-import { eq } from "drizzle-orm";
-
-// Lazy singleton — only created when first request arrives (avoids module-level env crash)
-let _supabaseAdmin: ReturnType<typeof createClient> | null = null;
-function getSupabaseAdmin() {
-  if (_supabaseAdmin) return _supabaseAdmin;
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url) throw new Error("SUPABASE_URL is required");
-  if (!key) throw new Error("SUPABASE_SERVICE_ROLE_KEY is required");
-  _supabaseAdmin = createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
-  return _supabaseAdmin;
-}
+import { supabaseAdmin } from './lib/supabase.js'
+import type { CreateFastifyContextOptions } from '@trpc/server/adapters/fastify'
+import { db } from '@carrymate/db/client'
+import { users } from '@carrymate/db/schema'
+import { eq } from 'drizzle-orm'
 
 export type ContextUser = {
   id: string;
   authId: string;
   email: string | null;
   name: string | null;
-  role: "user" | "sender" | "traveler" | "admin";
-  kycStatus: "pending" | "submitted" | "verified" | "rejected";
+  role: 'sender' | 'traveler' | 'admin' | 'user';
+  kycStatus: 'pending' | 'submitted' | 'verified' | 'rejected';
   isBanned: boolean;
-};
+}
 
 export type Context = {
   user: ContextUser | null;
   db: typeof db;
-};
+}
 
 export async function createContext({ req }: CreateFastifyContextOptions): Promise<Context> {
-  // Extract Bearer token from Authorization header
-  const authHeader = req.headers.authorization;
-  if (!authHeader?.startsWith("Bearer ")) {
-    return { user: null, db };
-  }
-
-  const token = authHeader.slice(7);
+  const token = req.headers.authorization?.replace('Bearer ', '')
+  if (!token) return { user: null, db }
 
   try {
-    // Verify token with Supabase
-    const { data: { user: authUser }, error } = await getSupabaseAdmin().auth.getUser(token);
-    if (error || !authUser) return { user: null, db };
+    const { data: { user: authUser }, error } = await supabaseAdmin.auth.getUser(token)
+    if (error || !authUser) return { user: null, db }
 
-    // Look up our users table for role and profile
+    // Look up our users table for profile data
     const [dbUser] = await db
       .select({
         id: users.id,
         authId: users.authId,
         email: users.email,
         name: users.name,
-        role: users.role,
         kycStatus: users.kycStatus,
         isBanned: users.isBanned,
       })
       .from(users)
       .where(eq(users.authId, authUser.id))
-      .limit(1);
+      .limit(1)
 
-    if (!dbUser) return { user: null, db };
+    if (!dbUser) return { user: null, db }
+
+    // Role comes from the JWT custom claim injected by the access token hook
+    const role = (authUser.app_metadata?.user_role ?? 'sender') as ContextUser['role']
 
     return {
       user: {
@@ -68,13 +52,13 @@ export async function createContext({ req }: CreateFastifyContextOptions): Promi
         authId: dbUser.authId ?? authUser.id,
         email: dbUser.email,
         name: dbUser.name,
-        role: dbUser.role,
+        role,
         kycStatus: dbUser.kycStatus,
         isBanned: dbUser.isBanned,
       },
       db,
-    };
+    }
   } catch {
-    return { user: null, db };
+    return { user: null, db }
   }
 }
