@@ -172,7 +172,7 @@ describe('protectedProcedure', () => {
   })
 
   it('injects user into context for downstream use', async () => {
-    const result = await callProcedure('protected', { user: senderUser, db: mockDb })
+    const result = (await callProcedure('protected', { user: senderUser, db: mockDb })) as { userId: string }
     expect(result.userId).toBe(senderUser.id)
   })
 })
@@ -245,7 +245,7 @@ describe('adminProcedure', () => {
   })
 
   it('injects admin user into context', async () => {
-    const result = await callProcedure('admin', { user: adminUser, db: mockDb })
+    const result = (await callProcedure('admin', { user: adminUser, db: mockDb })) as { adminId: string }
     expect(result.adminId).toBe(adminUser.id)
   })
 })
