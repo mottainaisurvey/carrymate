@@ -1,7 +1,6 @@
 import { supabaseAdmin } from './lib/supabase.js'
 import type { CreateFastifyContextOptions } from '@trpc/server/adapters/fastify'
-import { db } from '@carrymate/db/client'
-import { users } from '@carrymate/db/schema'
+import { db, users } from '@carrymate/db'
 import { eq } from 'drizzle-orm'
 
 export type ContextUser = {

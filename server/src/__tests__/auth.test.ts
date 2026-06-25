@@ -1,22 +1,26 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-// ── Use vi.hoisted so mockGetUser is available before vi.mock hoisting ────────
-const { mockGetUser } = vi.hoisted(() => ({
-  mockGetUser: vi.fn(),
-}))
-
-// ── Mock @carrymate/db before any imports that use it ────────────────────────
-vi.mock('@carrymate/db/client', () => ({
-  db: {
-    select: vi.fn().mockReturnThis(),
-    from: vi.fn().mockReturnThis(),
-    where: vi.fn().mockReturnThis(),
+// ── Use vi.hoisted so all mocks are available before vi.mock hoisting ─────────
+const { mockGetUser, mockDbChain } = vi.hoisted(() => {
+  const chain: Record<string, ReturnType<typeof vi.fn>> = {
+    select: vi.fn(),
+    from: vi.fn(),
+    where: vi.fn(),
     limit: vi.fn().mockResolvedValue([]),
     execute: vi.fn().mockResolvedValue([]),
-  },
-}))
+  }
+  chain.select.mockReturnValue(chain)
+  chain.from.mockReturnValue(chain)
+  chain.where.mockReturnValue(chain)
+  return {
+    mockGetUser: vi.fn(),
+    mockDbChain: chain,
+  }
+})
 
-vi.mock('@carrymate/db/schema', () => ({
+// ── Mock @carrymate/db ────────────────────────────────────────────────────────
+vi.mock('@carrymate/db', () => ({
+  db: mockDbChain,
   users: {
     id: 'id',
     authId: 'authId',
@@ -50,6 +54,7 @@ function makeCtxOptions(authorization?: string): CreateFastifyContextOptions {
   return {
     req: { headers: { authorization } } as unknown as CreateFastifyContextOptions['req'],
     res: {} as CreateFastifyContextOptions['res'],
+    info: {} as CreateFastifyContextOptions['info'],
   }
 }
 
@@ -57,6 +62,11 @@ function makeCtxOptions(authorization?: string): CreateFastifyContextOptions {
 describe('createContext', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    // Re-wire chain after clearAllMocks
+    mockDbChain.select.mockReturnValue(mockDbChain)
+    mockDbChain.from.mockReturnValue(mockDbChain)
+    mockDbChain.where.mockReturnValue(mockDbChain)
+    mockDbChain.limit.mockResolvedValue([])
   })
 
   it('returns null user when no Authorization header', async () => {
@@ -92,8 +102,7 @@ describe('createContext', () => {
       data: { user: { id: 'auth-uuid-1', email: 'test@example.com', app_metadata: {} } },
       error: null,
     })
-    const { db } = await import('@carrymate/db/client')
-    vi.mocked(db.limit).mockResolvedValueOnce([])
+    mockDbChain.limit.mockResolvedValueOnce([])
 
     const ctx = await createContext(makeCtxOptions('Bearer valid-token'))
     expect(ctx.user).toBeNull()
@@ -110,8 +119,7 @@ describe('createContext', () => {
       },
       error: null,
     })
-    const { db } = await import('@carrymate/db/client')
-    vi.mocked(db.limit).mockResolvedValueOnce([
+    mockDbChain.limit.mockResolvedValueOnce([
       { id: 'db-uuid-2', authId: 'auth-uuid-2', email: 'sender@example.com', name: 'Test Sender', kycStatus: 'pending', isBanned: false },
     ])
 
@@ -133,8 +141,7 @@ describe('createContext', () => {
       },
       error: null,
     })
-    const { db } = await import('@carrymate/db/client')
-    vi.mocked(db.limit).mockResolvedValueOnce([
+    mockDbChain.limit.mockResolvedValueOnce([
       { id: 'db-uuid-3', authId: 'auth-uuid-3', email: 'traveler@example.com', name: 'Test Traveler', kycStatus: 'verified', isBanned: false },
     ])
 
@@ -153,8 +160,7 @@ describe('createContext', () => {
       },
       error: null,
     })
-    const { db } = await import('@carrymate/db/client')
-    vi.mocked(db.limit).mockResolvedValueOnce([
+    mockDbChain.limit.mockResolvedValueOnce([
       { id: 'db-uuid-4', authId: 'auth-uuid-4', email: 'admin@carrymate.io', name: 'Admin User', kycStatus: 'verified', isBanned: false },
     ])
 
@@ -173,8 +179,7 @@ describe('createContext', () => {
       },
       error: null,
     })
-    const { db } = await import('@carrymate/db/client')
-    vi.mocked(db.limit).mockResolvedValueOnce([
+    mockDbChain.limit.mockResolvedValueOnce([
       { id: 'db-uuid-5', authId: 'auth-uuid-5', email: 'new@example.com', name: 'New User', kycStatus: 'pending', isBanned: false },
     ])
 
@@ -213,8 +218,7 @@ describe('createContext', () => {
       },
       error: null,
     })
-    const { db } = await import('@carrymate/db/client')
-    vi.mocked(db.limit).mockResolvedValueOnce([
+    mockDbChain.limit.mockResolvedValueOnce([
       { id: 'db-uuid-6', authId: 'auth-uuid-6', email: 'banned@example.com', name: 'Banned User', kycStatus: 'pending', isBanned: true },
     ])
 
