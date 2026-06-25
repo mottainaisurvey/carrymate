@@ -4,14 +4,17 @@ import { db } from "@carrymate/db/client";
 import { users } from "@carrymate/db/schema";
 import { eq } from "drizzle-orm";
 
-if (!process.env.SUPABASE_URL) throw new Error("SUPABASE_URL is required");
-if (!process.env.SUPABASE_SERVICE_ROLE_KEY) throw new Error("SUPABASE_SERVICE_ROLE_KEY is required");
-
-const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { autoRefreshToken: false, persistSession: false } }
-);
+// Lazy singleton — only created when first request arrives (avoids module-level env crash)
+let _supabaseAdmin: ReturnType<typeof createClient> | null = null;
+function getSupabaseAdmin() {
+  if (_supabaseAdmin) return _supabaseAdmin;
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url) throw new Error("SUPABASE_URL is required");
+  if (!key) throw new Error("SUPABASE_SERVICE_ROLE_KEY is required");
+  _supabaseAdmin = createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
+  return _supabaseAdmin;
+}
 
 export type ContextUser = {
   id: string;
@@ -39,7 +42,7 @@ export async function createContext({ req }: CreateFastifyContextOptions): Promi
 
   try {
     // Verify token with Supabase
-    const { data: { user: authUser }, error } = await supabaseAdmin.auth.getUser(token);
+    const { data: { user: authUser }, error } = await getSupabaseAdmin().auth.getUser(token);
     if (error || !authUser) return { user: null, db };
 
     // Look up our users table for role and profile
