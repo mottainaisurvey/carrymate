@@ -1,0 +1,27 @@
+{
+  "name": "carrymate",
+  "version": "0.0.1",
+  "private": true,
+  "description": "CarryMate — Diaspora Logistics Marketplace",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "db:generate": "turbo run db:generate --filter=@carrymate/db",
+    "db:push": "turbo run db:push --filter=@carrymate/db",
+    "db:seed": "turbo run db:seed --filter=@carrymate/db",
+    "db:studio": "turbo run db:studio --filter=@carrymate/db"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.3",
+    "@types/node": "^22.10.7"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
