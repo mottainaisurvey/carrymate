@@ -1,3 +1,4 @@
+// Build: 2026-06-25T22:10:53Z
 export default function HomePage() {
   return (
     <main style={{ fontFamily: "sans-serif", padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>
