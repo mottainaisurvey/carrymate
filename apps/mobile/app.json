@@ -25,6 +25,7 @@
         "backgroundColor": "#1D7A5F"
       },
       "package": "io.carrymate.app",
+      "kotlinVersion": "1.9.25",
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
