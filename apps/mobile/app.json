@@ -14,14 +14,21 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "io.carrymate.app"
+      "bundleIdentifier": "io.carrymate.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1D7A5F"
       },
-      "package": "io.carrymate.app"
+      "package": "io.carrymate.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,11 +39,15 @@
       "expo-notifications",
       [
         "expo-camera",
-        { "cameraPermission": "CarryMate needs camera access to photograph parcels at pickup." }
+        {
+          "cameraPermission": "CarryMate needs camera access to photograph parcels at pickup."
+        }
       ],
       [
         "expo-image-picker",
-        { "photosPermission": "CarryMate needs photo access to attach parcel images." }
+        {
+          "photosPermission": "CarryMate needs photo access to attach parcel images."
+        }
       ]
     ],
     "extra": {
