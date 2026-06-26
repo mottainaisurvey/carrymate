@@ -69,6 +69,22 @@ export const users = pgTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
+// ─── KYC SUBMISSIONS ─────────────────────────────────────────────────────────
+export const kycSubmissions = pgTable('kyc_submissions', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').notNull().references(() => users.id),
+  provider: text('provider').notNull().default('sumsub'),
+  applicantId: text('applicant_id'),
+  status: text('status').notNull().default('pending'),
+  submittedAt: timestamp('submitted_at', { withTimezone: true }),
+  reviewedAt: timestamp('reviewed_at', { withTimezone: true }),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+});
+
+export type KycSubmission = typeof kycSubmissions.$inferSelect;
+export type InsertKycSubmission = typeof kycSubmissions.$inferInsert;
+
 // ─── TRIPS ────────────────────────────────────────────────────────────────────
 export const trips = pgTable("trips", {
   id: uuid("id").primaryKey().defaultRandom(),
