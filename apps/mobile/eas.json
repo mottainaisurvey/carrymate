@@ -13,7 +13,7 @@
       }
     },
     "preview": {
-      "distribution": "internal",
+      "distribution": "store",
       "env": {
         "EXPO_PUBLIC_API_URL": "https://carrymate-staging.up.railway.app",
         "EXPO_PUBLIC_SUPABASE_URL": "https://dsfwdyryshbqqseoinzv.supabase.co",
