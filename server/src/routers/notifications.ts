@@ -5,23 +5,39 @@ import { router, protectedProcedure } from "../trpc.js";
 import { db, notifications } from "@carrymate/db";
 
 export const notificationsRouter = router({
-  /** List all notifications for the current user */
+  /**
+   * List notifications for the current user.
+   * Input is fully optional so mobile can call with no arguments.
+   */
   list: protectedProcedure
     .input(z.object({
       limit: z.number().min(1).max(100).default(50),
       offset: z.number().min(0).default(0),
       unreadOnly: z.boolean().default(false),
-    }))
+    }).optional())
     .query(async ({ ctx, input }) => {
+      const limit = input?.limit ?? 50;
+      const offset = input?.offset ?? 0;
+      const unreadOnly = input?.unreadOnly ?? false;
       const conditions = [eq(notifications.userId, ctx.user.id)];
-      if (input.unreadOnly) conditions.push(eq(notifications.isRead, false));
-      return db
+      if (unreadOnly) conditions.push(eq(notifications.isRead, false));
+      const rows = await db
         .select()
         .from(notifications)
         .where(and(...conditions))
         .orderBy(desc(notifications.createdAt))
-        .limit(input.limit)
-        .offset(input.offset);
+        .limit(limit)
+        .offset(offset);
+      // Return mobile-friendly shape
+      return rows.map((n) => ({
+        id: n.id,
+        type: n.type,
+        title: n.title,
+        body: n.body,
+        read: n.isRead,
+        createdAt: n.createdAt,
+        bookingId: n.bookingId,
+      }));
     }),
 
   /** Mark one or all notifications as read */
@@ -44,6 +60,15 @@ export const notificationsRouter = router({
       }
       return { success: true };
     }),
+
+  /** Mark ALL notifications as read — mobile alias */
+  markAllRead: protectedProcedure.mutation(async ({ ctx }) => {
+    await db
+      .update(notifications)
+      .set({ isRead: true })
+      .where(eq(notifications.userId, ctx.user.id));
+    return { success: true };
+  }),
 
   /** Get unread count */
   unreadCount: protectedProcedure.query(async ({ ctx }) => {

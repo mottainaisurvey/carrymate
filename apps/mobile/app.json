@@ -5,11 +5,12 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "scheme": "carrymate",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#1a1a2e"
+      "backgroundColor": "#1D7A5F"
     },
     "ios": {
       "supportsTablet": false,
@@ -18,18 +19,29 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#1a1a2e"
+        "backgroundColor": "#1D7A5F"
       },
       "package": "io.carrymate.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-router", "expo-secure-store"],
-    "scheme": "carrymate",
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-notifications",
+      [
+        "expo-camera",
+        { "cameraPermission": "CarryMate needs camera access to photograph parcels at pickup." }
+      ],
+      [
+        "expo-image-picker",
+        { "photosPermission": "CarryMate needs photo access to attach parcel images." }
+      ]
+    ],
     "extra": {
       "eas": {
-        "projectId": "carrymate-expo-project-id"
+        "projectId": "d8fbd1c6-3c29-47f3-99eb-3829e554c0ed"
       }
     }
   }
