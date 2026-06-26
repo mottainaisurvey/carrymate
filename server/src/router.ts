@@ -17,6 +17,7 @@ import { chatRouter } from "./routers/chat.js";
 import { reviewsRouter } from "./routers/reviews.js";
 import { waitlistRouter } from "./routers/waitlist.js";
 import { adminRouter } from "./routers/admin.js";
+import { s3UploadRouter } from "./routers/s3Upload.js";
 
 export const appRouter = router({
   auth: authRouter,
@@ -33,6 +34,7 @@ export const appRouter = router({
   reviews: reviewsRouter,
   waitlist: waitlistRouter,
   admin: adminRouter,
+  s3: s3UploadRouter,
 });
 
 export type AppRouter = typeof appRouter;

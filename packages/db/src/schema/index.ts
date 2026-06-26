@@ -64,6 +64,7 @@ export const users = pgTable("users", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   lastSignedIn: timestamp("last_signed_in", { withTimezone: true }).defaultNow().notNull(),
   pushToken: text("push_token"),
+  stripeAccountId: varchar("stripe_account_id", { length: 255 }),
 });
 
 export type User = typeof users.$inferSelect;
@@ -121,6 +122,7 @@ export const parcels = pgTable("parcels", {
   recipientAddress: text("recipient_address"),
   isCustomsSafe: boolean("is_customs_safe").default(true).notNull(),
   notes: text("notes"),
+  pickupPhotoUrl: text("pickup_photo_url"),
   status: parcelStatusEnum("status").default("pending").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
@@ -163,6 +165,8 @@ export const payments = pgTable("payments", {
   currency: varchar("currency", { length: 3 }).default("gbp").notNull(),
   stripePaymentIntentId: varchar("stripe_payment_intent_id", { length: 255 }),
   stripeTransferId: varchar("stripe_transfer_id", { length: 255 }),
+  paystackReference: varchar("paystack_reference", { length: 255 }),
+  paystackAccessCode: varchar("paystack_access_code", { length: 255 }),
   status: paymentStatusEnum("status").default("pending").notNull(),
   heldAt: timestamp("held_at", { withTimezone: true }),
   releasedAt: timestamp("released_at", { withTimezone: true }),
