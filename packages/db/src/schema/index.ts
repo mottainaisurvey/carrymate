@@ -15,7 +15,7 @@ import { sql } from "drizzle-orm";
 
 // ─── ENUMS ────────────────────────────────────────────────────────────────────
 export const userRoleEnum = pgEnum("user_role", ["user", "sender", "traveler", "admin"]);
-export const carrierTierEnum = pgEnum("carrier_tier", ["bronze", "silver", "gold"]);
+export const carrierTierEnum = pgEnum("carrier_tier", ["bronze", "silver", "gold", "platinum"]);
 export const kycStatusEnum = pgEnum("kyc_status", ["pending", "submitted", "verified", "rejected"]);
 export const tripStatusEnum = pgEnum("trip_status", ["open", "full", "completed", "cancelled"]);
 export const parcelStatusEnum = pgEnum("parcel_status", [
