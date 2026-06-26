@@ -2,10 +2,9 @@
 
 import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { trpc } from '@/lib/trpc'
 import { httpBatchLink } from '@trpc/client'
 import superjson from 'superjson'
-import { supabase } from '@/lib/supabase'
+import { trpc } from '@/lib/trpc'
 
 function getBaseUrl() {
   if (typeof window !== 'undefined') return ''
@@ -16,30 +15,33 @@ function getBaseUrl() {
 export function TrpcProvider({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient())
   const [trpcClient] = useState(() =>
-    (trpc as unknown as { createClient: (opts: object) => object }).createClient({
+    trpc.createClient({
       links: [
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
           transformer: superjson,
-          async headers() {
+          headers: async () => {
+            // Dynamically import to avoid SSR issues
+            const { createBrowserClient } = await import('@supabase/ssr')
+            const supabase = createBrowserClient(
+              process.env.NEXT_PUBLIC_SUPABASE_URL!,
+              process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+            )
             const {
               data: { session },
             } = await supabase.auth.getSession()
-            if (session?.access_token) {
-              return { Authorization: `Bearer ${session.access_token}` }
-            }
-            return {}
+            return session?.access_token
+              ? { Authorization: `Bearer ${session.access_token}` }
+              : {}
           },
         }),
       ],
     })
   )
 
-  const Provider = (trpc as unknown as { Provider: React.ComponentType<{ client: object; queryClient: QueryClient; children: React.ReactNode }> }).Provider
-
   return (
-    <Provider client={trpcClient} queryClient={queryClient}>
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </Provider>
+    </trpc.Provider>
   )
 }

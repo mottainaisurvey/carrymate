@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -10,7 +12,7 @@ type Role = 'sender' | 'traveler'
 export default function SignupPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const defaultRole = (searchParams.get('role') as Role) || 'sender'
+  const defaultRole = (searchParams?.get('role') as Role) || 'sender'
 
   const [role, setRole] = useState<Role>(defaultRole)
   const [email, setEmail] = useState('')

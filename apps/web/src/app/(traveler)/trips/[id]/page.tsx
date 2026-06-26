@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { trpc } from '@/lib/trpc'
@@ -17,7 +19,7 @@ const BOOKING_STATUS_STYLES: Record<string, { bg: string; color: string; label: 
 }
 
 export default function TripDetailPage() {
-  const { id } = useParams<{ id: string }>()
+  const params = useParams(); const id = (params?.id as string) ?? ''
   const { data: trip, isLoading } = trpc.trips.getById.useQuery({ id })
   const { data: bookings } = trpc.bookings.list.useQuery({ limit: 50, offset: 0 })
 

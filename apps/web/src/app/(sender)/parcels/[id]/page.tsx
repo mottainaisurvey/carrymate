@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { trpc } from '@/lib/trpc'
@@ -15,7 +17,7 @@ const STATUS_TIMELINE = [
 const STATUS_ORDER = ['pending', 'booked', 'collected', 'in_transit', 'delivered']
 
 export default function ParcelTrackingPage() {
-  const { id } = useParams<{ id: string }>()
+  const params = useParams(); const id = (params?.id as string) ?? ''
   const { data: parcel, isLoading } = trpc.parcels.getById.useQuery({ id })
 
   if (isLoading) {
