@@ -44,6 +44,10 @@
           }
         }
       ],
+      [
+        "./plugins/withKotlinVersion",
+        { "kotlinVersion": "1.9.25" }
+      ],
       "expo-secure-store",
       "expo-notifications",
       [
