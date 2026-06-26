@@ -2,8 +2,8 @@ import type { ReactNode } from 'react'
 import Link from 'next/link'
 
 const NAV_LINKS = [
-  { href: '/traveler/dashboard', label: 'My trips', icon: '✈️' },
-  { href: '/traveler/trips/new', label: 'Post a trip', icon: '+' },
+  { href: '/dashboard', label: 'My trips', icon: '✈️' },
+  { href: '/trips/new', label: 'Post a trip', icon: '+' },
 ]
 
 export default function TravelerLayout({ children }: { children: ReactNode }) {
@@ -16,7 +16,7 @@ export default function TravelerLayout({ children }: { children: ReactNode }) {
       >
         <div className="max-w-5xl mx-auto px-5 h-14 flex items-center justify-between">
           <Link
-            href="/traveler/dashboard"
+            href="/dashboard"
             className="font-serif text-xl font-black"
             style={{ color: 'var(--ink)' }}
           >
@@ -35,7 +35,7 @@ export default function TravelerLayout({ children }: { children: ReactNode }) {
               </Link>
             ))}
             <Link
-              href="/api/auth/signout"
+              href="/login"
               className="ml-2 px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-[var(--warm)]"
               style={{ color: 'var(--text-muted)' }}
             >

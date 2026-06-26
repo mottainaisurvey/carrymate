@@ -15,7 +15,7 @@ export default function MatchTravelerPage() {
 
   const createBooking = trpc.bookings.create.useMutation({
     onSuccess: (data) => {
-      router.push(`/sender/send/pay?bookingId=${data.booking.id}`)
+      router.push(`/send/pay?bookingId=${data.booking.id}`)
     },
   })
 

@@ -19,7 +19,7 @@ export default function LoginPage() {
     try {
       const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
       if (authError) throw authError
-      router.push('/sender/dashboard')
+      router.push('/dashboard')
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Sign in failed. Please check your credentials.')
     } finally {

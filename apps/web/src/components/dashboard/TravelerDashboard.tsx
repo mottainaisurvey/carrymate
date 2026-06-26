@@ -19,13 +19,12 @@ const BOOKING_STATUS_STYLES: Record<string, { bg: string; color: string; label: 
   cancelled: { bg: 'rgba(192,74,42,0.08)', color: 'var(--rust)', label: 'Cancelled' },
 }
 
-export default function TravelerDashboard() {
+export function TravelerDashboard() {
   const { data: trips, isLoading: tripsLoading } = trpc.trips.list.useQuery({ limit: 20, offset: 0 })
   const { data: bookings, isLoading: bookingsLoading } = trpc.bookings.list.useQuery({ limit: 20, offset: 0 })
 
   return (
     <div className="space-y-10">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-serif text-3xl font-black" style={{ color: 'var(--ink)' }}>
@@ -36,7 +35,7 @@ export default function TravelerDashboard() {
           </p>
         </div>
         <Link
-          href="/traveler/trips/new"
+          href="/trips/new"
           className="flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all hover:opacity-90"
           style={{ background: 'var(--teal)', color: 'white' }}
         >
@@ -44,7 +43,6 @@ export default function TravelerDashboard() {
         </Link>
       </div>
 
-      {/* Trips section */}
       <section>
         <h2 className="font-serif text-xl font-black mb-4" style={{ color: 'var(--ink)' }}>
           Upcoming flights
@@ -68,7 +66,7 @@ export default function TravelerDashboard() {
               Post your next flight and start earning by carrying parcels.
             </p>
             <Link
-              href="/traveler/trips/new"
+              href="/trips/new"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm transition-all hover:opacity-90"
               style={{ background: 'var(--teal)', color: 'white' }}
             >
@@ -82,7 +80,7 @@ export default function TravelerDashboard() {
               return (
                 <Link
                   key={trip.id}
-                  href={`/traveler/trips/${trip.id}`}
+                  href={`/trips/${trip.id}`}
                   className="flex items-center justify-between p-5 rounded-2xl transition-all hover:shadow-md hover:-translate-y-0.5"
                   style={{ background: 'white', border: '1px solid var(--border)' }}
                 >
@@ -120,7 +118,6 @@ export default function TravelerDashboard() {
         )}
       </section>
 
-      {/* Bookings section */}
       <section>
         <h2 className="font-serif text-xl font-black mb-4" style={{ color: 'var(--ink)' }}>
           Parcel bookings

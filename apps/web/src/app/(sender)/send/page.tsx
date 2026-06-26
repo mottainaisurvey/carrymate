@@ -22,7 +22,7 @@ export default function SendParcelPage() {
 
   const createParcel = trpc.parcels.create.useMutation({
     onSuccess: (data) => {
-      router.push(`/sender/send/match?parcelId=${data.id}`)
+      router.push(`/send/match?parcelId=${data.id}`)
     },
     onError: (err) => setError(err.message),
   })

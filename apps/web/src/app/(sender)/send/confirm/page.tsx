@@ -64,14 +64,14 @@ export default function ConfirmPage() {
 
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
-          href={`/sender/parcels/${booking?.parcelId ?? ''}`}
+          href={`/parcels/${booking?.parcelId ?? ''}`}
           className="flex-1 py-3.5 rounded-xl font-bold text-sm text-center transition-all hover:opacity-90"
           style={{ background: 'var(--teal)', color: 'white' }}
         >
           Track parcel
         </Link>
         <Link
-          href="/sender/dashboard"
+          href="/dashboard"
           className="flex-1 py-3.5 rounded-xl font-bold text-sm text-center transition-all hover:bg-[var(--warm)]"
           style={{ border: '1px solid var(--border)', color: 'var(--ink)' }}
         >

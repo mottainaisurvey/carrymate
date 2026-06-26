@@ -37,7 +37,7 @@ export default function TripDetailPage() {
         <h2 className="font-serif text-xl font-black mb-2" style={{ color: 'var(--ink)' }}>
           Trip not found
         </h2>
-        <Link href="/traveler/dashboard" className="text-sm font-bold" style={{ color: 'var(--teal)' }}>
+        <Link href="/dashboard" className="text-sm font-bold" style={{ color: 'var(--teal)' }}>
           ← Back to dashboard
         </Link>
       </div>
@@ -50,7 +50,7 @@ export default function TripDetailPage() {
   return (
     <div className="max-w-xl mx-auto">
       <Link
-        href="/traveler/dashboard"
+        href="/dashboard"
         className="inline-flex items-center gap-1.5 text-sm font-medium mb-6 hover:opacity-70 transition-opacity"
         style={{ color: 'var(--text-muted)' }}
       >

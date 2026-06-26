@@ -5,8 +5,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 
 const NAV_ITEMS = [
-  { href: '/sender/dashboard', label: 'Dashboard', icon: '📊' },
-  { href: '/sender/send', label: 'Send parcel', icon: '📦' },
+  { href: '/dashboard', label: 'Dashboard', icon: '📊' },
+  { href: '/send', label: 'Send parcel', icon: '📦' },
 ]
 
 export default function SenderLayout({ children }: { children: React.ReactNode }) {

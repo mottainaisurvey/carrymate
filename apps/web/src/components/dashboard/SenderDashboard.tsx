@@ -12,12 +12,11 @@ const STATUS_STYLES: Record<string, { bg: string; color: string; label: string }
   cancelled: { bg: 'rgba(192,74,42,0.08)', color: 'var(--rust)', label: 'Cancelled' },
 }
 
-export default function SenderDashboard() {
+export function SenderDashboard() {
   const { data: parcels, isLoading } = trpc.parcels.list.useQuery({ limit: 20, offset: 0 })
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="font-serif text-3xl font-black" style={{ color: 'var(--ink)' }}>
@@ -28,7 +27,7 @@ export default function SenderDashboard() {
           </p>
         </div>
         <Link
-          href="/sender/send"
+          href="/send"
           className="flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all hover:opacity-90"
           style={{ background: 'var(--teal)', color: 'white' }}
         >
@@ -36,15 +35,10 @@ export default function SenderDashboard() {
         </Link>
       </div>
 
-      {/* Parcel list */}
       {isLoading ? (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="h-24 rounded-2xl animate-pulse"
-              style={{ background: 'var(--warm)' }}
-            />
+            <div key={i} className="h-24 rounded-2xl animate-pulse" style={{ background: 'var(--warm)' }} />
           ))}
         </div>
       ) : !parcels?.length ? (
@@ -60,7 +54,7 @@ export default function SenderDashboard() {
             Send your first parcel and connect with a traveler flying your route.
           </p>
           <Link
-            href="/sender/send"
+            href="/send"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm transition-all hover:opacity-90"
             style={{ background: 'var(--teal)', color: 'white' }}
           >
@@ -74,7 +68,7 @@ export default function SenderDashboard() {
             return (
               <Link
                 key={parcel.id}
-                href={`/sender/parcels/${parcel.id}`}
+                href={`/parcels/${parcel.id}`}
                 className="flex items-center justify-between p-5 rounded-2xl transition-all hover:shadow-md hover:-translate-y-0.5"
                 style={{ background: 'white', border: '1px solid var(--border)' }}
               >

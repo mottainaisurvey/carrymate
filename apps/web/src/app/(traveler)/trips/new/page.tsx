@@ -20,7 +20,7 @@ export default function NewTripPage() {
 
   const createTrip = trpc.trips.create.useMutation({
     onSuccess: (data) => {
-      router.push(`/traveler/trips/${data.id}`)
+      router.push(`/trips/${data.id}`)
     },
     onError: (err) => setError(err.message),
   })

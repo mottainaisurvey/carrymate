@@ -15,7 +15,7 @@ export default function PaymentPage() {
 
   const createEscrow = trpc.payments.createEscrowHold.useMutation({
     onSuccess: () => {
-      router.push(`/sender/send/confirm?bookingId=${bookingId}`)
+      router.push(`/send/confirm?bookingId=${bookingId}`)
     },
   })
 
