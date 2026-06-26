@@ -21,6 +21,9 @@ buildscript {
     }
 }
 
+// Expose kotlinVersion at project level so expo-modules-core reads it via rootProject.ext.kotlinVersion
+ext.kotlinVersion = findProperty('android.kotlinVersion') ?: '1.9.25'
+
 apply plugin: "com.facebook.react.rootproject"
 
 allprojects {
