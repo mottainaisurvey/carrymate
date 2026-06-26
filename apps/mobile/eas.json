@@ -34,7 +34,7 @@
     "ipa": {
       "distribution": "internal",
       "ios": {
-        "simulator": false
+        "simulator": true
       },
       "env": {
         "EXPO_PUBLIC_API_URL": "https://carrymate-staging.up.railway.app",
