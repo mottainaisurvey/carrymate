@@ -3,6 +3,9 @@
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { trpc } from '@/lib/trpc'
+import type { RouterOutputs } from '@/lib/trpc'
+
+type Booking = RouterOutputs['bookings']['list'][number]
 
 const BOOKING_STATUS_STYLES: Record<string, { bg: string; color: string; label: string }> = {
   pending: { bg: 'rgba(200,150,62,0.12)', color: 'var(--gold)', label: 'Awaiting payment' },
@@ -19,7 +22,7 @@ export default function TripDetailPage() {
   const { data: bookings } = trpc.bookings.list.useQuery({ limit: 50, offset: 0 })
 
   // Filter bookings for this trip
-  const tripBookings = bookings?.filter((b) => b.tripId === id) ?? []
+  const tripBookings = bookings?.filter((b: Booking) => b.tripId === id) ?? []
 
   if (isLoading) {
     return (
@@ -148,7 +151,7 @@ export default function TripDetailPage() {
           </div>
         ) : (
           <div className="space-y-3">
-            {tripBookings.map((booking) => {
+            {tripBookings.map((booking: Booking) => {
               const style = BOOKING_STATUS_STYLES[booking.status] ?? BOOKING_STATUS_STYLES.pending
               return (
                 <div

@@ -2,6 +2,9 @@
 
 import Link from 'next/link'
 import { trpc } from '@/lib/trpc'
+import type { RouterOutputs } from '@/lib/trpc'
+
+type Parcel = RouterOutputs['parcels']['list'][number]
 
 const STATUS_STYLES: Record<string, { bg: string; color: string; label: string }> = {
   pending: { bg: 'rgba(200,150,62,0.12)', color: 'var(--gold)', label: 'Pending' },
@@ -63,7 +66,7 @@ export function SenderDashboard() {
         </div>
       ) : (
         <div className="space-y-3">
-          {parcels.map((parcel) => {
+          {parcels.map((parcel: Parcel) => {
             const style = STATUS_STYLES[parcel.status] ?? STATUS_STYLES.pending
             return (
               <Link

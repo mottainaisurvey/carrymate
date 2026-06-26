@@ -2,6 +2,10 @@
 
 import Link from 'next/link'
 import { trpc } from '@/lib/trpc'
+import type { RouterOutputs } from '@/lib/trpc'
+
+type Trip = RouterOutputs['trips']['list'][number]
+type Booking = RouterOutputs['bookings']['list'][number]
 
 const TRIP_STATUS_STYLES: Record<string, { bg: string; color: string; label: string }> = {
   open: { bg: 'var(--teal-pale)', color: 'var(--teal)', label: 'Open' },
@@ -75,7 +79,7 @@ export function TravelerDashboard() {
           </div>
         ) : (
           <div className="space-y-3">
-            {trips.map((trip) => {
+            {trips.map((trip: Trip) => {
               const style = TRIP_STATUS_STYLES[trip.status] ?? TRIP_STATUS_STYLES.open
               return (
                 <Link
@@ -139,7 +143,7 @@ export function TravelerDashboard() {
           </div>
         ) : (
           <div className="space-y-3">
-            {bookings.map((booking) => {
+            {bookings.map((booking: Booking) => {
               const style = BOOKING_STATUS_STYLES[booking.status] ?? BOOKING_STATUS_STYLES.pending
               return (
                 <div
