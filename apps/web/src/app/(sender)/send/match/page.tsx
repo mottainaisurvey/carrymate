@@ -2,6 +2,9 @@
 
 import { useSearchParams, useRouter } from 'next/navigation'
 import { trpc } from '@/lib/trpc'
+import type { RouterOutputs } from '@/lib/trpc'
+
+type Trip = RouterOutputs['trips']['list'][number]
 
 export default function MatchTravelerPage() {
   const searchParams = useSearchParams()
@@ -80,7 +83,7 @@ export default function MatchTravelerPage() {
         </div>
       ) : (
         <div className="space-y-3">
-          {trips.map((trip) => (
+          {trips.map((trip: Trip) => (
             <div
               key={trip.id}
               className="rounded-2xl p-5"

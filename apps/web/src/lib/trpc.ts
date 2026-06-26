@@ -2,7 +2,10 @@ import { createTRPCNext } from '@trpc/next'
 import { httpBatchLink } from '@trpc/client'
 import superjson from 'superjson'
 import type { AppRouter } from '@carrymate/api'
+import { inferRouterOutputs } from '@trpc/server'
 import { supabase } from './supabase'
+
+export type RouterOutputs = inferRouterOutputs<AppRouter>
 
 function getBaseUrl() {
   if (typeof window !== 'undefined') return ''

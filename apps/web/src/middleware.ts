@@ -1,15 +1,34 @@
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
+import { createServerClient } from '@supabase/ssr'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
-  const supabase = createMiddlewareClient({ req, res })
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll: () => req.cookies.getAll(),
+        setAll: (cookies) =>
+          cookies.forEach(({ name, value, options }) =>
+            res.cookies.set(name, value, options)
+          ),
+      },
+    }
+  )
+
   const {
     data: { session },
   } = await supabase.auth.getSession()
 
-  if (req.nextUrl.pathname.startsWith('/sender') && !session) {
+  const protected_prefixes = ['/dashboard', '/send', '/trips', '/parcels']
+  const isProtected = protected_prefixes.some((prefix) =>
+    req.nextUrl.pathname.startsWith(prefix)
+  )
+
+  if (isProtected && !session) {
     return NextResponse.redirect(new URL('/login', req.url))
   }
 
@@ -17,5 +36,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/sender/:path*'],
+  matcher: ['/dashboard/:path*', '/send/:path*', '/trips/:path*', '/parcels/:path*'],
 }
