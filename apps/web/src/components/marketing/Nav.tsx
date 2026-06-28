@@ -50,9 +50,9 @@ export function Nav() {
           <Link
             href="/signup"
             className="text-sm font-bold px-5 py-2.5 rounded-full transition-all hover:opacity-90"
-            style={{ background: 'var(--teal)', color: 'white' }}
+            style={{ background: 'var(--ink)', color: 'var(--cream)' }}
           >
-            Get started
+            Get early access
           </Link>
         </div>
       </div>

@@ -1,13 +1,146 @@
 'use client'
-
 import Link from 'next/link'
 
-const CORRIDORS = [
-  { from: 'London', to: 'Lagos', flag: '🇬🇧→🇳🇬' },
-  { from: 'London', to: 'Accra', flag: '🇬🇧→🇬🇭' },
-  { from: 'Paris', to: 'Abidjan', flag: '🇫🇷→🇨🇮' },
-  { from: 'Amsterdam', to: 'Lagos', flag: '🇳🇱→🇳🇬' },
-]
+function PhoneMockup() {
+  return (
+    <div className="relative flex justify-center items-center">
+      <div
+        className="w-[280px] h-[560px] rounded-[40px] p-4 shadow-[0_40px_80px_rgba(26,18,8,0.25)]"
+        style={{ background: 'var(--ink)' }}
+      >
+        <div
+          className="w-full h-full rounded-[28px] overflow-hidden flex flex-col"
+          style={{ background: 'var(--cream)' }}
+        >
+          {/* Phone header */}
+          <div className="p-6 pb-4" style={{ background: 'var(--teal)' }}>
+            <div
+              className="w-20 h-1 rounded-full mx-auto mb-4"
+              style={{ background: 'rgba(255,255,255,0.3)' }}
+            />
+            <div className="flex justify-between items-center mb-3">
+              <span className="font-serif text-lg font-bold text-white">CarryMate</span>
+              <span className="text-xs text-white/70">Gold carrier</span>
+            </div>
+            <div className="text-xs text-white/80">This trip · LHR → LOS · Apr 13</div>
+            <div className="font-serif text-4xl font-black text-white mt-1">£81 earned</div>
+          </div>
+          {/* Phone body */}
+          <div className="p-4 flex flex-col gap-2.5 flex-1">
+            <div className="bg-white rounded-2xl p-3.5 border border-black/5">
+              <div
+                className="text-[10px] font-bold uppercase tracking-wider mb-1.5"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                Active delivery
+              </div>
+              <div
+                className="flex items-center gap-1.5 text-sm font-semibold"
+                style={{ color: 'var(--ink)' }}
+              >
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--teal)' }} />
+                London
+                <div className="flex-1 h-px" style={{ background: 'var(--border)' }} />
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--rust)' }} />
+                Lagos
+              </div>
+              <div className="text-lg font-bold mt-1" style={{ color: 'var(--teal)' }}>
+                £38{' '}
+                <span className="text-xs font-normal" style={{ color: 'var(--text-muted)' }}>
+                  on delivery
+                </span>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl p-3.5 border border-black/5">
+              <div
+                className="text-[10px] font-bold uppercase tracking-wider mb-1.5"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                Parcel confirmed · OTP verified
+              </div>
+              <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                Clothing package · 2kg · Adaeze O.
+              </div>
+              <div className="flex gap-1.5 mt-2">
+                <span
+                  className="text-[10px] font-bold px-2.5 py-0.5 rounded-full"
+                  style={{ background: 'var(--teal-pale)', color: 'var(--teal)' }}
+                >
+                  Customs-safe
+                </span>
+                <span
+                  className="text-[10px] font-bold px-2.5 py-0.5 rounded-full"
+                  style={{ background: 'var(--rust-pale)', color: 'var(--rust)' }}
+                >
+                  In transit
+                </span>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl p-3.5 border border-black/5">
+              <div
+                className="text-[10px] font-bold uppercase tracking-wider mb-2"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                Delivery OTP — show recipient
+              </div>
+              <div className="flex gap-2">
+                {['4', '8', '2', '7', '1', '9'].map((d, i) => (
+                  <div
+                    key={i}
+                    className="w-9 h-11 rounded-lg flex items-center justify-center text-lg font-black font-serif"
+                    style={{ background: 'var(--cream)', border: '1.5px solid var(--border)' }}
+                  >
+                    {d}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div
+              className="mt-auto rounded-2xl py-3.5 text-center text-sm font-bold text-white"
+              style={{ background: 'var(--teal)' }}
+            >
+              Confirm delivery
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Floating badge — top right */}
+      <div className="absolute top-14 -right-14 bg-white rounded-2xl px-4 py-3 shadow-[0_8px_32px_rgba(26,18,8,0.15)] flex items-center gap-2.5 animate-float1">
+        <div
+          className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
+          style={{ background: 'var(--teal-pale)' }}
+        >
+          🤝
+        </div>
+        <div>
+          <div className="text-[13px] font-bold" style={{ color: 'var(--ink)' }}>
+            Match found
+          </div>
+          <div className="text-[11px]" style={{ color: 'var(--text-muted)' }}>
+            Kwame · LHR→LOS
+          </div>
+        </div>
+      </div>
+      {/* Floating badge — bottom left */}
+      <div className="absolute bottom-24 -left-16 bg-white rounded-2xl px-4 py-3 shadow-[0_8px_32px_rgba(26,18,8,0.15)] flex items-center gap-2.5 animate-float2">
+        <div
+          className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
+          style={{ background: 'var(--rust-pale)' }}
+        >
+          🔐
+        </div>
+        <div>
+          <div className="text-[13px] font-bold" style={{ color: 'var(--ink)' }}>
+            Escrow held
+          </div>
+          <div className="text-[11px]" style={{ color: 'var(--text-muted)' }}>
+            £43 · Releasing soon
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function Hero() {
   return (
@@ -15,7 +148,7 @@ export function Hero() {
       className="relative min-h-screen flex items-center overflow-hidden pt-16"
       style={{ background: 'var(--cream)' }}
     >
-      {/* Decorative blob */}
+      {/* Decorative blobs */}
       <div
         className="absolute top-20 right-0 w-96 h-96 rounded-full opacity-30 blur-3xl pointer-events-none"
         style={{ background: 'var(--teal-pale)' }}
@@ -28,25 +161,35 @@ export function Hero() {
       <div className="relative max-w-6xl mx-auto px-6 py-24 grid md:grid-cols-2 gap-16 items-center">
         {/* Left copy */}
         <div>
+          {/* Eyebrow — Fix 3 */}
           <div
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6"
+            className="inline-flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-full mb-6"
             style={{ background: 'var(--teal-pale)', color: 'var(--teal)' }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-current" />
-            Community-powered delivery
+            <span className="hero-pulse-dot" />
+            Live · LHR→LOS · 3 travelers available
           </div>
 
-          <h1 className="font-serif text-5xl md:text-6xl font-black leading-tight mb-6" style={{ color: 'var(--ink)' }}>
-            Send anything<br />home for{' '}
-            <em style={{ fontStyle: 'italic', fontWeight: 300, color: '#c8963e' }}>half</em><br />
+          {/* H1 — gold italic 'half' */}
+          <h1
+            className="font-serif text-5xl md:text-6xl font-black leading-tight mb-6"
+            style={{ color: 'var(--ink)' }}
+          >
+            Send anything
+            <br />
+            home for{' '}
+            <em style={{ fontStyle: 'italic', fontWeight: 300, color: '#c8963e' }}>half</em>
+            <br />
             the price.
           </h1>
 
           <p className="text-lg leading-relaxed mb-8" style={{ color: 'var(--text-muted)' }}>
-            Connect with verified travelers flying to your destination. Safe, affordable, and built for the diaspora community.
+            Connect with verified travelers flying to your destination. Safe, affordable, and built
+            for the diaspora community.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 mb-12">
+          {/* CTAs — Fix 4: second button copy */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-10">
             <Link
               href="/signup"
               className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full font-bold text-base transition-all hover:opacity-90"
@@ -60,8 +203,36 @@ export function Hero() {
               className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full font-bold text-base border transition-all hover:bg-[var(--warm)]"
               style={{ borderColor: 'var(--border)', color: 'var(--ink)' }}
             >
-              Earn as a traveler
+              Earn on your flight
             </Link>
+          </div>
+
+          {/* Stats row — Fix 2 */}
+          <div className="flex flex-wrap gap-8 mb-10">
+            <div>
+              <div className="font-serif text-2xl font-black" style={{ color: 'var(--ink)' }}>
+                50%
+              </div>
+              <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                cheaper than couriers
+              </div>
+            </div>
+            <div>
+              <div className="font-serif text-2xl font-black" style={{ color: 'var(--ink)' }}>
+                £150
+              </div>
+              <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                avg traveler earnings
+              </div>
+            </div>
+            <div>
+              <div className="font-serif text-2xl font-black" style={{ color: 'var(--ink)' }}>
+                48hr
+              </div>
+              <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                London to Lagos
+              </div>
+            </div>
           </div>
 
           {/* Trust strip */}
@@ -78,42 +249,9 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Right card */}
-        <div className="relative">
-          <div
-            className="rounded-3xl p-8 shadow-xl"
-            style={{ background: 'white', border: '1px solid var(--border)' }}
-          >
-            <div className="text-sm font-bold mb-4" style={{ color: 'var(--text-muted)' }}>
-              Active corridors
-            </div>
-            <div className="space-y-3">
-              {CORRIDORS.map((c) => (
-                <div
-                  key={c.from + c.to}
-                  className="flex items-center justify-between p-3 rounded-xl"
-                  style={{ background: 'var(--warm)' }}
-                >
-                  <span className="font-medium text-sm">
-                    {c.flag} {c.from} → {c.to}
-                  </span>
-                  <span
-                    className="text-xs font-bold px-2.5 py-1 rounded-full"
-                    style={{ background: 'var(--teal-pale)', color: 'var(--teal)' }}
-                  >
-                    Active
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div
-              className="mt-6 pt-5 border-t flex items-center justify-between text-sm"
-              style={{ borderColor: 'var(--border)' }}
-            >
-              <span style={{ color: 'var(--text-muted)' }}>Avg. delivery time</span>
-              <span className="font-bold">3–7 days</span>
-            </div>
-          </div>
+        {/* Right column — Fix 1: phone mockup */}
+        <div className="relative hidden md:flex justify-center">
+          <PhoneMockup />
         </div>
       </div>
     </section>
