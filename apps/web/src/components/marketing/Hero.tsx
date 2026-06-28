@@ -37,8 +37,9 @@ export function Hero() {
           </div>
 
           <h1 className="font-serif text-5xl md:text-6xl font-black leading-tight mb-6" style={{ color: 'var(--ink)' }}>
-            Send parcels home with{' '}
-            <span style={{ color: 'var(--teal)' }}>trusted travelers</span>
+            Send anything<br />home for{' '}
+            <em style={{ fontStyle: 'italic', fontWeight: 300, color: '#c8963e' }}>half</em><br />
+            the price.
           </h1>
 
           <p className="text-lg leading-relaxed mb-8" style={{ color: 'var(--text-muted)' }}>
