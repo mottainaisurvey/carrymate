@@ -23,11 +23,11 @@ export function Nav() {
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="font-serif text-xl font-black" style={{ color: 'var(--ink)' }}>
-          Carry<span style={{ color: 'var(--teal)' }}>Mate</span>
+          Carry<span style={{ color: '#1d7a5f' }}>Mate</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          {['How it works', 'Routes', 'Pricing', 'Trust & Safety'].map((item) => (
+          {['How it works', 'Routes', 'Trust', 'Earn'].map((item) => (
             <a
               key={item}
               href="#"

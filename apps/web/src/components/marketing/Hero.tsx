@@ -184,8 +184,8 @@ export function Hero() {
           </h1>
 
           <p className="text-lg leading-relaxed mb-8" style={{ color: 'var(--text-muted)' }}>
-            Connect with verified travelers flying to your destination. Safe, affordable, and built
-            for the diaspora community.
+            CarryMate connects diaspora communities with everyday travelers who turn unused luggage
+            space into real income. Cheaper than DHL. Faster than post. Trusted by your community.
           </p>
 
           {/* CTAs — Fix 4: second button copy */}
