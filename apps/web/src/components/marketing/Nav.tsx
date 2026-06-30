@@ -27,15 +27,20 @@ export function Nav() {
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          {['How it works', 'Routes', 'Trust', 'Earn'].map((item) => (
-            <a
-              key={item}
-              href="#"
+          {([
+            { label: 'How it works', href: '/how-it-works' },
+            { label: 'Routes', href: '/corridors' },
+            { label: 'Trust', href: '/trust' },
+            { label: 'Earn', href: '/how-it-works#traveler' },
+          ] as { label: string; href: string }[]).map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
               className="text-sm font-medium transition-colors hover:opacity-70"
               style={{ color: 'var(--ink)' }}
             >
-              {item}
-            </a>
+              {label}
+            </Link>
           ))}
         </div>
 

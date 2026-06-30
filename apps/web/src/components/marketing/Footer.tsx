@@ -1,10 +1,29 @@
 import Link from 'next/link'
 
-const LINKS = {
-  Product: ['How it works', 'Active corridors', 'Pricing', 'Mobile app'],
-  Company: ['About us', 'Blog', 'Careers', 'Press'],
-  Support: ['Help centre', 'Trust & Safety', 'Dispute resolution', 'Contact us'],
-  Legal: ['Privacy policy', 'Terms of service', 'Cookie policy'],
+const LINKS: Record<string, { label: string; href: string }[]> = {
+  Product: [
+    { label: 'How it works', href: '/how-it-works' },
+    { label: 'Active corridors', href: '/corridors' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'Mobile app', href: '#' },
+  ],
+  Company: [
+    { label: 'About us', href: '/about' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Careers', href: '/careers' },
+    { label: 'Press', href: '/press' },
+  ],
+  Support: [
+    { label: 'Help centre', href: '#' },
+    { label: 'Trust & Safety', href: '/trust' },
+    { label: 'Dispute resolution', href: '#' },
+    { label: 'Contact us', href: '#' },
+  ],
+  Legal: [
+    { label: 'Privacy policy', href: '/legal/privacy' },
+    { label: 'Terms of service', href: '/legal/terms' },
+    { label: 'Cookie policy', href: '/legal/cookies' },
+  ],
 }
 
 export function Footer() {
@@ -14,9 +33,9 @@ export function Footer() {
         <div className="grid md:grid-cols-5 gap-10 mb-12">
           {/* Brand */}
           <div className="md:col-span-1">
-            <div className="font-serif text-xl font-black mb-3">
+            <Link href="/" className="font-serif text-xl font-black mb-3 block" style={{ color: 'white' }}>
               Carry<span style={{ color: 'var(--teal-light)' }}>Mate</span>
-            </div>
+            </Link>
             <p className="text-sm opacity-60 leading-relaxed">
               Community-powered logistics for the diaspora.
             </p>
@@ -41,14 +60,23 @@ export function Footer() {
                 {category}
               </div>
               <ul className="space-y-2.5">
-                {items.map((item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="text-sm opacity-70 hover:opacity-100 transition-opacity"
-                    >
-                      {item}
-                    </a>
+                {items.map(({ label, href }) => (
+                  <li key={label}>
+                    {href.startsWith('/') ? (
+                      <Link
+                        href={href}
+                        className="text-sm opacity-70 hover:opacity-100 transition-opacity"
+                      >
+                        {label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={href}
+                        className="text-sm opacity-70 hover:opacity-100 transition-opacity"
+                      >
+                        {label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
