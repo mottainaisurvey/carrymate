@@ -73,7 +73,7 @@ export default function CorridorsPage() {
                   </div>
                 </div>
                 <ProgressBar value={Math.min(100, surge * 50)} color={surge >= 1.2 ? '#ef4444' : surge >= 1.1 ? '#f59e0b' : '#1d9e75'} />
-                <div className="flex justify-between items-center mt-2">
+                <div className="flex justify-between items-center mt-2 mb-2">
                   <Badge variant={surgeVariant(surge)}>
                     {pct > 0 ? `+${pct}% surge active` : 'Standard'}
                   </Badge>
@@ -81,6 +81,19 @@ export default function CorridorsPage() {
                     checked={c.isActive}
                     onChange={(v) => updateCorridor.mutate({ id: c.id, isActive: v })}
                   />
+                </div>
+                <div className="flex items-center gap-1.5">
+                  {c.isActive ? (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[rgba(29,158,117,0.15)] text-[#1d9e75]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1d9e75] inline-block" />
+                      Active
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-[rgba(122,134,153,0.15)] text-[#7a8699]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#7a8699] inline-block" />
+                      Inactive
+                    </span>
+                  )}
                 </div>
               </div>
             )

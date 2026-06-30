@@ -14,6 +14,18 @@ import {
 import { useRouter } from 'expo-router'
 import { trpc } from '../../../lib/trpc'
 
+const LIVE_CORRIDORS = [
+  { label: '🇬🇧 London → Lagos', originCity: 'London', originCode: 'LHR', destCity: 'Lagos', destCode: 'LOS' },
+  { label: '🇬🇧 London → Accra', originCity: 'London', originCode: 'LHR', destCity: 'Accra', destCode: 'ACC' },
+]
+
+const COMING_SOON_CORRIDORS = [
+  '🇺🇸 New York → Lagos (JFK → LOS)',
+  '🇬🇧 London → Nairobi (LHR → NBO)',
+  '🇫🇷 Paris → Abidjan (CDG → ABJ)',
+  '🇬🇧 London → Kingston (LHR → KIN)',
+]
+
 export default function PostTripScreen() {
   const router = useRouter()
   const [originCity, setOriginCity] = useState('')
@@ -66,45 +78,31 @@ export default function PostTripScreen() {
           Let senders know you're travelling and have space for parcels.
         </Text>
 
-        <Text style={styles.label}>From (city) *</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g. London"
-          placeholderTextColor="#aaa"
-          value={originCity}
-          onChangeText={setOriginCity}
-        />
-
-        <Text style={styles.label}>Origin code (airport/city) *</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g. LHR"
-          placeholderTextColor="#aaa"
-          value={originCode}
-          onChangeText={setOriginCode}
-          autoCapitalize="characters"
-          maxLength={10}
-        />
-
-        <Text style={styles.label}>To (city) *</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g. Lagos"
-          placeholderTextColor="#aaa"
-          value={destCity}
-          onChangeText={setDestCity}
-        />
-
-        <Text style={styles.label}>Destination code (airport/city) *</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="e.g. LOS"
-          placeholderTextColor="#aaa"
-          value={destCode}
-          onChangeText={setDestCode}
-          autoCapitalize="characters"
-          maxLength={10}
-        />
+        <Text style={styles.label}>Select your corridor *</Text>
+        {LIVE_CORRIDORS.map((c) => {
+          const isSelected = originCode === c.originCode && destCode === c.destCode
+          return (
+            <TouchableOpacity
+              key={c.destCode}
+              style={[styles.corridorBtn, isSelected && styles.corridorBtnActive]}
+              onPress={() => {
+                setOriginCity(c.originCity)
+                setOriginCode(c.originCode)
+                setDestCity(c.destCity)
+                setDestCode(c.destCode)
+              }}
+            >
+              <Text style={[styles.corridorBtnText, isSelected && styles.corridorBtnTextActive]}>{c.label}</Text>
+              {isSelected && <Text style={styles.corridorCheck}>✓</Text>}
+            </TouchableOpacity>
+          )
+        })}
+        <View style={styles.comingSoonBox}>
+          <Text style={styles.comingSoonTitle}>Coming in 2026</Text>
+          {COMING_SOON_CORRIDORS.map((r) => (
+            <Text key={r} style={styles.comingSoonItem}>{r}</Text>
+          ))}
+        </View>
 
         <Text style={styles.label}>Departure date *</Text>
         <TextInput
@@ -205,5 +203,29 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   btnDisabled: { opacity: 0.6 },
-  btnText: { color: '#fff', fontSize: 16, fontWeight: '700' },
+  nextBtnText: { color: '#fff', fontSize: 16, fontWeight: '700' },
+  corridorBtn: {
+    borderWidth: 1.5,
+    borderColor: '#ddd',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  corridorBtnActive: { borderColor: '#1D7A5F', backgroundColor: '#f0fdf4' },
+  corridorBtnText: { fontSize: 15, color: '#333', fontWeight: '500' },
+  corridorBtnTextActive: { color: '#1D7A5F', fontWeight: '700' },
+  corridorCheck: { fontSize: 16, color: '#1D7A5F', fontWeight: '700' },
+  comingSoonBox: {
+    backgroundColor: '#f9f9f9',
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 20,
+    marginTop: 4,
+  },
+  comingSoonTitle: { fontSize: 12, fontWeight: '700', color: '#aaa', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 },
+  comingSoonItem: { fontSize: 13, color: '#bbb', marginBottom: 4 },
 })

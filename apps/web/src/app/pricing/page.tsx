@@ -9,10 +9,6 @@ import { Footer } from '@/components/marketing/Footer'
 const ROUTES = [
   { flag: '🇬🇧', route: 'London → Lagos', weight: '2kg', price: '£18–£28', dhl: '£75–£120', save: 'Save ~£65' },
   { flag: '🇬🇧', route: 'London → Accra', weight: '2kg', price: '£16–£24', dhl: '£70–£110', save: 'Save ~£60' },
-  { flag: '🇺🇸', route: 'New York → Lagos', weight: '2kg', price: '$24–$38', dhl: '$90–$140', save: 'Save ~$80' },
-  { flag: '🇬🇧', route: 'London → Nairobi', weight: '2kg', price: '£20–£30', dhl: '£80–£120', save: 'Save ~£65' },
-  { flag: '🇫🇷', route: 'Paris → Abidjan', weight: '2kg', price: '€22–€34', dhl: '€80–€120', save: 'Save ~€65' },
-  { flag: '🇬🇧', route: 'London → Kingston', weight: '2kg', price: '£18–£26', dhl: '£70–£105', save: 'Save ~£55' },
 ]
 
 const TIERS = [
@@ -159,6 +155,9 @@ export default function PricingPage() {
                   </tbody>
                 </table>
               </div>
+              <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '-20px', marginBottom: '32px' }}>
+                More corridors — New York → Lagos, London → Nairobi, Paris → Abidjan, and London → Kingston — coming in 2026.
+              </p>
 
               {/* FAQ */}
               <MiniFaq title="Sender pricing questions" items={SENDER_FAQS} />

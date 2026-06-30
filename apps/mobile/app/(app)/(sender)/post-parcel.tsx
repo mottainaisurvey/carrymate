@@ -31,6 +31,18 @@ interface ParcelForm {
 
 const STEP_TITLES = ['Item Details', 'Route', 'Size & Weight', 'Review']
 
+const LIVE_CORRIDORS = [
+  { label: '🇬🇧 London → Lagos', originCity: 'London', originCode: 'LHR', destCity: 'Lagos', destCode: 'LOS' },
+  { label: '🇬🇧 London → Accra', originCity: 'London', originCode: 'LHR', destCity: 'Accra', destCode: 'ACC' },
+]
+
+const COMING_SOON_CORRIDORS = [
+  '🇺🇸 New York → Lagos (JFK → LOS)',
+  '🇬🇧 London → Nairobi (LHR → NBO)',
+  '🇫🇷 Paris → Abidjan (CDG → ABJ)',
+  '🇬🇧 London → Kingston (LHR → KIN)',
+]
+
 export default function PostParcelScreen() {
   const router = useRouter()
   const [step, setStep] = useState<Step>(1)
@@ -151,42 +163,26 @@ export default function PostParcelScreen() {
         {step === 2 && (
           <>
             <Text style={styles.sectionTitle}>Where is it going?</Text>
-            <Text style={styles.label}>From (city) *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="e.g. London"
-              placeholderTextColor="#aaa"
-              value={form.originCity}
-              onChangeText={(v) => set('originCity', v)}
-            />
-            <Text style={styles.label}>Origin airport/city code *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="e.g. LHR"
-              placeholderTextColor="#aaa"
-              value={form.originCode}
-              onChangeText={(v) => set('originCode', v)}
-              autoCapitalize="characters"
-              maxLength={10}
-            />
-            <Text style={styles.label}>To (city) *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="e.g. Lagos"
-              placeholderTextColor="#aaa"
-              value={form.destCity}
-              onChangeText={(v) => set('destCity', v)}
-            />
-            <Text style={styles.label}>Destination airport/city code *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="e.g. LOS"
-              placeholderTextColor="#aaa"
-              value={form.destCode}
-              onChangeText={(v) => set('destCode', v)}
-              autoCapitalize="characters"
-              maxLength={10}
-            />
+            <Text style={styles.label}>Select a corridor *</Text>
+            {LIVE_CORRIDORS.map((c) => {
+              const isSelected = form.originCode === c.originCode && form.destCode === c.destCode
+              return (
+                <TouchableOpacity
+                  key={c.destCode}
+                  style={[styles.corridorBtn, isSelected && styles.corridorBtnActive]}
+                  onPress={() => setForm((prev) => ({ ...prev, originCity: c.originCity, originCode: c.originCode, destCity: c.destCity, destCode: c.destCode }))}
+                >
+                  <Text style={[styles.corridorBtnText, isSelected && styles.corridorBtnTextActive]}>{c.label}</Text>
+                  {isSelected && <Text style={styles.corridorCheck}>✓</Text>}
+                </TouchableOpacity>
+              )
+            })}
+            <View style={styles.comingSoonBox}>
+              <Text style={styles.comingSoonTitle}>Coming in 2026</Text>
+              {COMING_SOON_CORRIDORS.map((r) => (
+                <Text key={r} style={styles.comingSoonItem}>{r}</Text>
+              ))}
+            </View>
             <Text style={styles.label}>Recipient name *</Text>
             <TextInput
               style={styles.input}
@@ -382,4 +378,28 @@ const styles = StyleSheet.create({
   nextBtnFull: { flex: 1 },
   btnDisabled: { opacity: 0.6 },
   nextBtnText: { color: '#fff', fontSize: 15, fontWeight: '700' },
+  corridorBtn: {
+    borderWidth: 1.5,
+    borderColor: '#ddd',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  corridorBtnActive: { borderColor: '#1D7A5F', backgroundColor: '#f0fdf4' },
+  corridorBtnText: { fontSize: 15, color: '#333', fontWeight: '500' },
+  corridorBtnTextActive: { color: '#1D7A5F', fontWeight: '700' },
+  corridorCheck: { fontSize: 16, color: '#1D7A5F', fontWeight: '700' },
+  comingSoonBox: {
+    backgroundColor: '#f9f9f9',
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 20,
+    marginTop: 4,
+  },
+  comingSoonTitle: { fontSize: 12, fontWeight: '700', color: '#aaa', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 },
+  comingSoonItem: { fontSize: 13, color: '#bbb', marginBottom: 4 },
 })

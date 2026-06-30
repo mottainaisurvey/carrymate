@@ -18,7 +18,7 @@ const FAQ_SECTIONS = [
       },
       {
         q: 'Which routes does CarryMate cover?',
-        a: 'We are live on the following corridors:\n\n• London → Lagos (LHR → LOS) — launch route\n• London → Accra (LHR → ACC) — launch route\n• New York → Lagos (JFK → LOS)\n• London → Nairobi (LHR → NBO)\n• Paris → Abidjan (CDG → ABJ)\n• London → Kingston, Jamaica (LHR → KIN)\n\nWe are expanding to additional corridors throughout 2026. If your route is not listed, join the waitlist and we will notify you when it opens.',
+        a: 'We are live on two corridors at launch:\n\n• London → Lagos (LHR → LOS) — launch route\n• London → Accra (LHR → ACC) — launch route\n\nWe are expanding to additional corridors later in 2026, starting with New York → Lagos (JFK → LOS), London → Nairobi (LHR → NBO), Paris → Abidjan (CDG → ABJ), and London → Kingston (LHR → KIN). If your route is not listed, join the waitlist and we will notify you when it opens.',
         link: { href: '/corridors', text: 'View all corridors' },
       },
       {

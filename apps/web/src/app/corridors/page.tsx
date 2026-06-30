@@ -5,7 +5,7 @@ import { Footer } from '@/components/marketing/Footer'
 
 export const metadata: Metadata = {
   title: 'Corridors — CarryMate',
-  description: 'Six live diaspora delivery routes between the UK, US, France, and Africa — each fully profiled with customs intelligence, traveler earnings, and delivery times.',
+  description: 'Two live diaspora delivery routes — London to Lagos and London to Accra — each fully profiled with customs intelligence, traveler earnings, and delivery times.'
 }
 
 type DotType = 'safe' | 'warn' | 'block'
@@ -88,115 +88,6 @@ const CORRIDORS: CorridorData[] = [
     ],
     footerNote: 'Customs rules verified June 2026 · CEPS form generated automatically in app for flagged parcels',
   },
-  {
-    flag: '🇺🇸 → 🇳🇬',
-    route: 'New York → Lagos',
-    airports: 'John F. Kennedy International (JFK) → Murtala Muhammed International (LOS)',
-    badge: 'Live',
-    stats: [
-      { label: 'Avg delivery', val: '$32', sub: 'vs $120+ courier' },
-      { label: 'Delivery time', val: '72hr', sub: 'via direct or connecting' },
-      { label: 'Traveler earnings', val: '$200', sub: 'avg per round trip' },
-      { label: 'Community', val: '600k+', sub: 'Nigerians in the US' },
-    ],
-    about: [
-      'The US hosts an estimated 600,000 to one million Nigerians — heavily concentrated in the New York/New Jersey metro area, Maryland, Houston, and Atlanta. This is one of the world\'s highest-income diaspora communities, with strong demand for high-value parcels including electronics, apparel, and business equipment.',
-      'The 2025 elimination of the US de minimis exemption (goods under $800 previously exempt) has made commercial shipping significantly more expensive, increasing demand for the CarryMate traveler-carried model for personal-use goods.',
-    ],
-    customsTitle: 'Customs guide · US exit + Nigeria entry',
-    threshold: 'US exit: no licence required under $2,500 declared value',
-    rules: [
-      { type: 'safe', text: 'Personal goods under $2,500 — no US export licence needed' },
-      { type: 'safe', text: 'Clothing and personal items — permitted both ends' },
-      { type: 'warn', text: 'Goods over $2,500 — Electronic Export Information (EEI) filing required' },
-      { type: 'warn', text: 'Nigeria arrival: NGN 50,000 duty-free limit same as LHR corridor' },
-      { type: 'warn', text: 'Electronics: 1 unit — declare on Red channel at LOS' },
-      { type: 'block', text: 'ITAR-controlled items — strictly prohibited regardless of value' },
-    ],
-    footerNote: 'US de minimis exemption eliminated August 2025 — CarryMate traveler-carried model unaffected for personal-use goods',
-  },
-  {
-    flag: '🇬🇧 → 🇰🇪',
-    route: 'London → Nairobi',
-    airports: 'London Heathrow (LHR) → Jomo Kenyatta International (NBO)',
-    badge: 'Live',
-    stats: [
-      { label: 'Avg delivery', val: '£25', sub: 'vs £90+ courier' },
-      { label: 'Delivery time', val: '48hr', sub: 'door to door' },
-      { label: 'Traveler earnings', val: '£140', sub: 'avg per round trip' },
-      { label: 'Flights daily', val: '2', sub: 'BA, Kenya Airways' },
-    ],
-    about: [
-      "Kenya's diaspora in the UK is smaller than Nigeria or Ghana but highly educated and professionally active. Two direct daily services operate (British Airways and Kenya Airways), providing reliable traveler supply. Nairobi is also East Africa's commercial hub, with M-Pesa mobile money integration making payouts frictionless for Kenyan-based travelers.",
-      "Kenya has one of East Africa's more generous duty-free allowances at KES 50,000 (approximately £385), making this one of the lower-customs-risk corridors for moderately priced goods. Electronics bundles remain a risk area.",
-    ],
-    customsTitle: 'Customs guide · Kenya',
-    threshold: 'Duty-free: KES 50,000 (~£385) personal effects',
-    rules: [
-      { type: 'safe', text: 'Clothing and personal items — permitted' },
-      { type: 'safe', text: 'Most goods within KES 50,000 — no declaration needed' },
-      { type: 'safe', text: 'M-Pesa payouts supported for traveler earnings' },
-      { type: 'warn', text: '25% import duty + 16% VAT applies above KES 50,000' },
-      { type: 'warn', text: 'Electronics bundles — commercial import presumption risk' },
-      { type: 'warn', text: 'Medicines — Kenya Pharmacy Board permit required' },
-    ],
-    footerNote: 'M-Pesa traveler payouts supported via Flutterwave · Fastest payout corridor in East Africa',
-  },
-  {
-    flag: '🇫🇷 → 🇨🇮',
-    route: 'Paris → Abidjan',
-    airports: "Paris Charles de Gaulle (CDG) → Félix Houphouët-Boigny International (ABJ)",
-    badge: 'Live',
-    stats: [
-      { label: 'Avg delivery', val: '€28', sub: 'vs €100+ courier' },
-      { label: 'Delivery time', val: '48hr', sub: 'door to door' },
-      { label: 'Traveler earnings', val: '€160', sub: 'avg per round trip' },
-      { label: 'Flights daily', val: '2', sub: "Air France, Air Côte d'Ivoire" },
-    ],
-    about: [
-      "France hosts one of Europe's largest Ivorian diaspora communities, with an estimated 200,000 Ivorian nationals in Paris and surrounding regions. Air France and Air Côte d'Ivoire operate daily direct services, and the corridor benefits from the linguistic and cultural continuity of the Francophone West African community.",
-      "CarryMate's customs guide and in-app interface for this corridor is fully available in French, with declaration forms generated automatically for goods requiring CEPS (Côte d'Ivoire customs) filings. Parcel type: clothing, cosmetics, packaged food, electronics, and business documents.",
-    ],
-    customsTitle: "Customs guide · Côte d'Ivoire",
-    threshold: 'CFA franc personal allowance applies',
-    rules: [
-      { type: 'safe', text: 'Personal clothing and effects — permitted within threshold' },
-      { type: 'safe', text: 'Cosmetics for personal use — permitted' },
-      { type: 'safe', text: 'French language guide and forms provided in app' },
-      { type: 'warn', text: 'Goods above personal allowance — declare on arrival' },
-      { type: 'warn', text: 'Electronics — declare, duty applies on commercial quantities' },
-      { type: 'block', text: 'Fresh food — phytosanitary certificate required, high seizure risk' },
-    ],
-    footerNote: 'Full French-language interface · Declaration forms auto-generated · App available in French and English',
-  },
-  {
-    flag: '🇬🇧 → 🇯🇲',
-    route: 'London → Kingston',
-    airports: 'London Heathrow (LHR) → Norman Manley International (KIN)',
-    badge: 'Live',
-    stats: [
-      { label: 'Avg delivery', val: '£24', sub: 'vs £85+ courier' },
-      { label: 'Delivery time', val: '36hr', sub: 'door to door' },
-      { label: 'Traveler earnings', val: '£120', sub: 'avg per round trip' },
-      { label: 'Community', val: '800k+', sub: 'Caribbean diaspora in UK' },
-    ],
-    about: [
-      "The UK's Caribbean diaspora — estimated at over 800,000, predominantly Jamaican and Trinidadian — has some of the strongest community ties in the diaspora world. The Windrush generation's roots run deep in South London, Birmingham, and Bristol, and the community continues to maintain strong connections with the island through regular travel and remittances.",
-      'British Airways operates the primary direct route, with Air Jamaica and Caribbean Airlines providing connecting options. Common parcels: clothing, electronics, Jamaican and Caribbean food products, healthcare items, and gifts.',
-    ],
-    customsTitle: 'Customs guide · Jamaica',
-    threshold: 'Duty-free: JMD 50,000 (~£250) per traveler',
-    rules: [
-      { type: 'safe', text: 'Clothing, shoes, and personal goods — permitted' },
-      { type: 'safe', text: 'Ackee (canned and sealed) — permitted' },
-      { type: 'safe', text: 'Relatively generous duty-free threshold vs other corridors' },
-      { type: 'warn', text: 'Electronics — declare if new or high value' },
-      { type: 'warn', text: 'Items above JMD 50,000 — Jamaica Customs declaration required' },
-      { type: 'block', text: 'Fresh produce — agricultural inspection required, high seizure risk' },
-      { type: 'block', text: 'Prescription medicines — Jamaica Pharmacy Council documentation required' },
-    ],
-    footerNote: 'One of the most established diaspora routes in the UK · Strong community traveler supply year-round',
-  },
 ]
 
 const DOT_COLORS: Record<DotType, string> = {
@@ -219,7 +110,7 @@ export default function CorridorsPage() {
             Every corridor,<br />fully profiled
           </h1>
           <p style={{ fontSize: '18px', color: 'var(--text-muted)', maxWidth: '520px', margin: '0 auto', lineHeight: 1.7 }}>
-            Six live routes between the UK, US, France, and Africa. Each one built with local knowledge, customs intelligence, and community data.
+            Two live routes at launch — London to Lagos and London to Accra. Each one built with local knowledge, customs intelligence, and community data.
           </p>
         </div>
 
@@ -297,20 +188,28 @@ export default function CorridorsPage() {
           ))}
 
           {/* Coming soon */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: '24px' }}>
-            {[
-              { flag: '🇬🇧 → 🇿🇦', route: 'London → Johannesburg', note: 'Coming Q3 2026 · LHR → JNB · South African diaspora corridor' },
-              { flag: '🇺🇸 → 🇬🇭', route: 'New York → Accra', note: 'Coming Q3 2026 · JFK → ACC · Expanding US–Ghana coverage' },
-            ].map(({ flag, route, note }) => (
-              <div key={route} style={{ background: 'var(--warm)', border: '1.5px dashed var(--border)', borderRadius: '24px', padding: '32px', textAlign: 'center' }}>
-                <div style={{ fontSize: '32px', marginBottom: '12px' }}>{flag}</div>
-                <div className="font-serif" style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '6px' }}>{route}</div>
-                <p style={{ fontSize: '14px', color: 'var(--text-muted)', marginBottom: '16px' }}>{note}</p>
-                <Link href="/signup" style={{ background: 'var(--ink)', color: 'var(--cream)', padding: '9px 20px', borderRadius: '100px', fontSize: '13px', fontWeight: 600, textDecoration: 'none', display: 'inline-block' }}>
-                  Join waitlist
-                </Link>
-              </div>
-            ))}
+          <div style={{ background: 'var(--warm)', border: '1.5px dashed var(--border)', borderRadius: '24px', padding: '40px 36px' }}>
+            <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '12px' }}>Coming in 2026</div>
+            <h3 className="font-serif" style={{ fontSize: '22px', fontWeight: 700, color: 'var(--ink)', marginBottom: '10px' }}>More corridors launching later this year</h3>
+            <p style={{ fontSize: '15px', color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '24px', maxWidth: '560px' }}>
+              We are expanding to New York → Lagos, London → Nairobi, Paris → Abidjan, and London → Kingston later this year. Join the waitlist to be notified first.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '12px', marginBottom: '24px' }}>
+              {[
+                { flag: '🇺🇸', label: 'New York → Lagos', code: 'JFK → LOS' },
+                { flag: '🇬🇧', label: 'London → Nairobi', code: 'LHR → NBO' },
+                { flag: '🇫🇷', label: 'Paris → Abidjan', code: 'CDG → ABJ' },
+                { flag: '🇬🇧', label: 'London → Kingston', code: 'LHR → KIN' },
+              ].map(({ flag, label, code }) => (
+                <div key={code} style={{ background: 'white', border: '1px solid var(--border)', borderRadius: '14px', padding: '16px 18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--ink)' }}>{flag} {label}</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px', fontFamily: 'monospace' }}>{code}</div>
+                  </div>
+                  <Link href="/signup" style={{ fontSize: '12px', fontWeight: 600, color: 'var(--teal)', textDecoration: 'none', whiteSpace: 'nowrap' }}>Join waitlist →</Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

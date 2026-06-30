@@ -167,7 +167,7 @@ export function Hero() {
             style={{ background: 'var(--teal-pale)', color: 'var(--teal)' }}
           >
             <span className="hero-pulse-dot" />
-            Live · LHR→LOS · 3 travelers available
+            Live · LHR→LOS · LHR→ACC · 2 corridors
           </div>
 
           {/* H1 — gold italic 'half' */}
@@ -230,7 +230,7 @@ export function Hero() {
                 48hr
               </div>
               <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                London to Lagos
+                LHR to LOS & ACC
               </div>
             </div>
           </div>
