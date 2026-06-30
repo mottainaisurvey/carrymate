@@ -199,7 +199,7 @@ export default function PricingPage() {
                   { label: 'Parcel 3: Baby formula · £24 delivery fee', val: '£18.00' },
                   { label: 'Total earnings (3 parcels · 5.5kg used)', val: '£63.00', bold: true },
                 ].map(({ label, val, bold }) => (
-                  <div key={label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px', padding: '10px 0', borderBottom: bold ? 'none' : '1px solid var(--border)', fontWeight: bold ? 700 : 400, fontSize: bold ? '16px' : '14px' }}>
+                  <div key={label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: bold ? '16px' : '14px', padding: '10px 0', borderBottom: bold ? 'none' : '1px solid var(--border)', fontWeight: bold ? 700 : 400 }}>
                     <span>{label}</span>
                     <span className="font-serif" style={{ fontSize: '18px', fontWeight: 700, color: 'var(--teal)' }}>{val}</span>
                   </div>
