@@ -1,12 +1,24 @@
 'use client'
 
 import type { Metadata } from 'next'
+
 import Link from 'next/link'
 import { useState } from 'react'
 import { Nav } from '@/components/marketing/Nav'
 import { Footer } from '@/components/marketing/Footer'
 
-const SENDER_STEPS = [
+type Step = {
+  num: string
+  title: string
+  body1: string
+  body2: string
+  tip: string
+  flip?: boolean
+  color?: string
+  visual: React.ReactNode
+}
+
+const SENDER_STEPS: Step[] = [
   {
     num: '1',
     title: 'Describe your parcel — we check customs instantly',
@@ -119,7 +131,7 @@ const SENDER_STEPS = [
   },
 ]
 
-const TRAVELER_STEPS = [
+const TRAVELER_STEPS: Step[] = [
   {
     num: '1',
     title: 'Post your trip and set your earning goal',
