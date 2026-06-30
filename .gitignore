@@ -38,8 +38,9 @@ Thumbs.db
 
 # Expo / React Native
 .expo
-android/
-ios/
+# android/ and ios/ are committed to ensure consistent EAS builds
+# android/
+# ios/
 *.jks
 *.p8
 *.p12

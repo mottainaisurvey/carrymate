@@ -4,11 +4,24 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./schema": "./src/schema/index.ts",
-    "./client": "./src/client.ts"
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./schema": {
+      "development": "./src/schema/index.ts",
+      "types": "./src/schema/index.ts",
+      "default": "./dist/schema/index.js"
+    },
+    "./client": {
+      "development": "./src/client.ts",
+      "types": "./src/client.ts",
+      "default": "./dist/client.js"
+    }
   },
   "scripts": {
+    "build": "tsc",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:migrate": "drizzle-kit migrate",

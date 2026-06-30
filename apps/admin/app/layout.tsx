@@ -1,0 +1,25 @@
+import type { Metadata } from 'next'
+import './globals.css'
+import { TRPCProvider } from '@/components/TRPCProvider'
+
+export const metadata: Metadata = {
+  title: 'CarryMate — Super Admin',
+  description: 'CarryMate Super Admin Console',
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        <TRPCProvider>{children}</TRPCProvider>
+      </body>
+    </html>
+  )
+}

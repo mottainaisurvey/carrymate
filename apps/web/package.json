@@ -1,5 +1,6 @@
 {
   "name": "@carrymate/web",
+  "type": "module",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -12,28 +13,29 @@
   "dependencies": {
     "@carrymate/api": "workspace:*",
     "@carrymate/db": "workspace:*",
-    "@supabase/supabase-js": "^2.47.10",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.108.2",
+    "@tanstack/react-query": "^5.62.16",
     "@trpc/client": "^11.0.0",
     "@trpc/next": "^11.0.0",
     "@trpc/react-query": "^11.0.0",
     "@trpc/server": "^11.0.0",
-    "@tanstack/react-query": "^5.62.16",
-    "next": "14.2.21",
+    "next": "14.2.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "superjson": "^2.2.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@types/node": "^22.10.7",
+    "@types/node": "^22.20.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "typescript": "^5.7.3",
-    "tailwindcss": "^3.4.17",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
     "eslint": "^8.57.1",
-    "eslint-config-next": "14.2.21"
+    "eslint-config-next": "14.2.35",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3"
   }
 }

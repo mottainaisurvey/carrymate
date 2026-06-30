@@ -15,7 +15,7 @@ import { sql } from "drizzle-orm";
 
 // ─── ENUMS ────────────────────────────────────────────────────────────────────
 export const userRoleEnum = pgEnum("user_role", ["user", "sender", "traveler", "admin"]);
-export const carrierTierEnum = pgEnum("carrier_tier", ["bronze", "silver", "gold"]);
+export const carrierTierEnum = pgEnum("carrier_tier", ["bronze", "silver", "gold", "platinum"]);
 export const kycStatusEnum = pgEnum("kyc_status", ["pending", "submitted", "verified", "rejected"]);
 export const tripStatusEnum = pgEnum("trip_status", ["open", "full", "completed", "cancelled"]);
 export const parcelStatusEnum = pgEnum("parcel_status", [
@@ -63,10 +63,28 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
   lastSignedIn: timestamp("last_signed_in", { withTimezone: true }).defaultNow().notNull(),
+  pushToken: text("push_token"),
+  stripeAccountId: varchar("stripe_account_id", { length: 255 }),
 });
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
+
+// ─── KYC SUBMISSIONS ─────────────────────────────────────────────────────────
+export const kycSubmissions = pgTable('kyc_submissions', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').notNull().references(() => users.id),
+  provider: text('provider').notNull().default('sumsub'),
+  applicantId: text('applicant_id'),
+  status: text('status').notNull().default('pending'),
+  submittedAt: timestamp('submitted_at', { withTimezone: true }),
+  reviewedAt: timestamp('reviewed_at', { withTimezone: true }),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+});
+
+export type KycSubmission = typeof kycSubmissions.$inferSelect;
+export type InsertKycSubmission = typeof kycSubmissions.$inferInsert;
 
 // ─── TRIPS ────────────────────────────────────────────────────────────────────
 export const trips = pgTable("trips", {
@@ -104,6 +122,7 @@ export const parcels = pgTable("parcels", {
   recipientAddress: text("recipient_address"),
   isCustomsSafe: boolean("is_customs_safe").default(true).notNull(),
   notes: text("notes"),
+  pickupPhotoUrl: text("pickup_photo_url"),
   status: parcelStatusEnum("status").default("pending").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
@@ -146,6 +165,8 @@ export const payments = pgTable("payments", {
   currency: varchar("currency", { length: 3 }).default("gbp").notNull(),
   stripePaymentIntentId: varchar("stripe_payment_intent_id", { length: 255 }),
   stripeTransferId: varchar("stripe_transfer_id", { length: 255 }),
+  paystackReference: varchar("paystack_reference", { length: 255 }),
+  paystackAccessCode: varchar("paystack_access_code", { length: 255 }),
   status: paymentStatusEnum("status").default("pending").notNull(),
   heldAt: timestamp("held_at", { withTimezone: true }),
   releasedAt: timestamp("released_at", { withTimezone: true }),

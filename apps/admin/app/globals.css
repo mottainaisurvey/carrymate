@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg:       #0d1117;
+  --surface:  #161b22;
+  --surface2: #1c2330;
+  --border:   #2a3444;
+  --border2:  #374355;
+  --text:     #e6e2da;
+  --muted:    #7a8699;
+  --teal:     #1d9e75;
+  --teal-d:   #145c44;
+  --teal-gl:  rgba(29,158,117,0.12);
+  --gold:     #c8963e;
+  --gold-gl:  rgba(200,150,62,0.12);
+  --rust:     #c04a2a;
+  --rust-gl:  rgba(192,74,42,0.12);
+  --blue:     #3b82f6;
+  --blue-gl:  rgba(59,130,246,0.12);
+  --green:    #22c55e;
+  --amber:    #f59e0b;
+  --red:      #ef4444;
+  --mono:     'DM Mono', monospace;
+  --sans:     'DM Sans', sans-serif;
+  --sidebar:  220px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 13px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* Live pulse animation */
+@keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.live-dot { animation: livepulse 2s infinite; }
+
+/* Toggle switch */
+.toggle-track { transition: background 0.2s; }
+.toggle-thumb { transition: transform 0.2s; }

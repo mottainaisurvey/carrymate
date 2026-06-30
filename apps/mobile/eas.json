@@ -7,24 +7,46 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "http://localhost:4000",
-        "EXPO_PUBLIC_SUPABASE_URL": "",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": ""
+        "EXPO_PUBLIC_API_URL": "https://carrymate-staging.up.railway.app",
+        "EXPO_PUBLIC_SUPABASE_URL": "https://dsfwdyryshbqqseoinzv.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzZndkeXJ5c2hicXFzZW9pbnp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MTUyNzgsImV4cCI6MjA5Nzk5MTI3OH0.9gxsFT9NoXtALB2AadTy6GgBI7QIRZ2b-imJqDPclxs"
       }
     },
     "preview": {
-      "distribution": "internal",
+      "distribution": "store",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://api-staging.carrymate.io",
-        "EXPO_PUBLIC_SUPABASE_URL": "",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": ""
+        "EXPO_PUBLIC_API_URL": "https://carrymate-staging.up.railway.app",
+        "EXPO_PUBLIC_SUPABASE_URL": "https://dsfwdyryshbqqseoinzv.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzZndkeXJ5c2hicXFzZW9pbnp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MTUyNzgsImV4cCI6MjA5Nzk5MTI3OH0.9gxsFT9NoXtALB2AadTy6GgBI7QIRZ2b-imJqDPclxs"
+      }
+    },
+    "apk": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://carrymate-staging.up.railway.app",
+        "EXPO_PUBLIC_SUPABASE_URL": "https://dsfwdyryshbqqseoinzv.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzZndkeXJ5c2hicXFzZW9pbnp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MTUyNzgsImV4cCI6MjA5Nzk5MTI3OH0.9gxsFT9NoXtALB2AadTy6GgBI7QIRZ2b-imJqDPclxs"
+      }
+    },
+    "ipa": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://carrymate-staging.up.railway.app",
+        "EXPO_PUBLIC_SUPABASE_URL": "https://dsfwdyryshbqqseoinzv.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzZndkeXJ5c2hicXFzZW9pbnp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MTUyNzgsImV4cCI6MjA5Nzk5MTI3OH0.9gxsFT9NoXtALB2AadTy6GgBI7QIRZ2b-imJqDPclxs"
       }
     },
     "production": {
       "env": {
         "EXPO_PUBLIC_API_URL": "https://api.carrymate.io",
-        "EXPO_PUBLIC_SUPABASE_URL": "",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": ""
+        "EXPO_PUBLIC_SUPABASE_URL": "https://dsfwdyryshbqqseoinzv.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzZndkeXJ5c2hicXFzZW9pbnp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MTUyNzgsImV4cCI6MjA5Nzk5MTI3OH0.9gxsFT9NoXtALB2AadTy6GgBI7QIRZ2b-imJqDPclxs"
       }
     }
   },

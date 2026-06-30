@@ -1,42 +1,40 @@
-import { initTRPC, TRPCError } from "@trpc/server";
-import superjson from "superjson";
-import type { Context } from "./context.js";
+// Re-export tRPC primitives from trpc.ts so existing imports from "./router.js" still work
+export { router, publicProcedure, protectedProcedure, adminProcedure } from "./trpc.js";
+import { router } from "./trpc.js";
 
-// ── tRPC init ─────────────────────────────────────────────────────────────────
-const t = initTRPC.context<Context>().create({
-  transformer: superjson,
-  errorFormatter({ shape }) {
-    return shape;
-  },
-});
-
-export const router = t.router;
-export const publicProcedure = t.procedure;
-
-export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
-  if (!ctx.user) {
-    throw new TRPCError({ code: "UNAUTHORIZED", message: "Authentication required" });
-  }
-  if (ctx.user.isBanned) {
-    throw new TRPCError({ code: "FORBIDDEN", message: "Account is suspended" });
-  }
-  return next({ ctx: { ...ctx, user: ctx.user } });
-});
-
-export const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (ctx.user.role !== "admin") {
-    throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
-  }
-  return next({ ctx });
-});
-
-// ── Sub-routers (stubs — to be expanded in Phase 2M and beyond) ───────────────
+// ── Sub-routers ───────────────────────────────────────────────────────────────
 import { authRouter } from "./routers/auth.js";
 import { healthRouter } from "./routers/health.js";
+import { usersRouter } from "./routers/users.js";
+import { parcelsRouter } from "./routers/parcels.js";
+import { tripsRouter } from "./routers/trips.js";
+import { bookingsRouter } from "./routers/bookings.js";
+import { paymentsRouter } from "./routers/payments.js";
+import { disputesRouter } from "./routers/disputes.js";
+import { corridorsRouter } from "./routers/corridors.js";
+import { notificationsRouter } from "./routers/notifications.js";
+import { chatRouter } from "./routers/chat.js";
+import { reviewsRouter } from "./routers/reviews.js";
+import { waitlistRouter } from "./routers/waitlist.js";
+import { adminRouter } from "./routers/admin.js";
+import { s3UploadRouter } from "./routers/s3Upload.js";
 
 export const appRouter = router({
   auth: authRouter,
   health: healthRouter,
+  users: usersRouter,
+  parcels: parcelsRouter,
+  trips: tripsRouter,
+  bookings: bookingsRouter,
+  payments: paymentsRouter,
+  disputes: disputesRouter,
+  corridors: corridorsRouter,
+  notifications: notificationsRouter,
+  chat: chatRouter,
+  reviews: reviewsRouter,
+  waitlist: waitlistRouter,
+  admin: adminRouter,
+  s3: s3UploadRouter,
 });
 
 export type AppRouter = typeof appRouter;
